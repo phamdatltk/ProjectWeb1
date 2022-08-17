@@ -8,15 +8,11 @@
 
     mysqli_set_charset($conn, 'UTF8');
 
-    function select(string $query): array {
-        global $mysqli;
-        $result = [];
-
-        $data = $mysqli->query($query);
-        if($data->length > 0) {
-            while($row = $data->fetch_assoc()){
-                array_push($result, $row);
-            }
+    function select($query){
+        $result = array();
+        $object_records = mysqli_query($GLOBALS['conn'], $query);
+        while(sizeof($result) < $object_records->num_rows){
+            $result[] = mysqli_fetch_array($object_records);
         }
         return $result;
     }
