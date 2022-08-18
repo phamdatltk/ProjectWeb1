@@ -1,4 +1,10 @@
 <?php    
+    if(isset($_COOKIE['TokenID'])){
+        $TokenID = $_COOKIE['TokenID'];
+    }
+
+    $sqlSelect = "SELECT * FROM Users WHERE Token = '$TokenID'";
+    
     $servername = "localhost";
     $username = "root";
     $password = "Phamdat280102@@";
@@ -7,6 +13,12 @@
     $conn =  mysqli_connect($servername, $username, $password, $database) ;
 
     mysqli_set_charset($conn, 'UTF8');
+
+    $records = mysqli_query($conn, $sqlSelect);
+    $record = mysqli_fetch_array($records);
+    $Avatar = $record['Avatar'];
+    $Full_name= $record['Full_name'];
+    $Email = $record['Email'];
 
     function select($query){
         $result = array();

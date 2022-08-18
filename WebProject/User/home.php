@@ -1,22 +1,12 @@
 <?php
-    if(isset($_COOKIE['TokenID'])){
-        $TokenID = $_COOKIE['TokenID'];
-    }
+    require("../connect.php");
 
-    $sqlSelect = "SELECT * FROM Users WHERE Token = '$TokenID'";
     $sqlSelectTopSale = "SELECT * FROM `Products`
                          ORDER BY Sale DESC
                          LIMIT 4;";
     $sqlSelectAllCategories = "SELECT * FROM Types";
     $sqlSelectAllProducts = "SELECT * FROM `Products`
                              LIMIT 20;";
-    require("../connect.php");
-
-    $records = mysqli_query($conn, $sqlSelect);
-    $record = mysqli_fetch_array($records);
-    $Avatar = $record['Avatar'];
-    $Full_name= $record['Full_name'];
-    $Email = $record['Email'];
 
     $recordSTS = select($sqlSelectTopSale);
     $recordSAC = select($sqlSelectAllCategories);

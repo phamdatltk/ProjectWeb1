@@ -1,21 +1,10 @@
 <?php
-    if(isset($_COOKIE['TokenID'])){
-        $TokenID = $_COOKIE['TokenID'];
-    }
     if(isset($_GET['ID'])){
         $ID = $_GET['ID'];
     }
-
-    $sqlSelect = "SELECT * FROM Users WHERE Token = '$TokenID'";
     $sqlSelectProduct = "SELECT * FROM Products WHERE ID = '$ID'";
 
     require("../connect.php");
-
-    $records = mysqli_query($conn, $sqlSelect);
-    $record = mysqli_fetch_array($records);
-    $Avatar = $record['Avatar'];
-    $Full_name= $record['Full_name'];
-    $Email = $record['Email'];
 
     $recordProductObject = mysqli_query($conn, $sqlSelectProduct);
     $recordProduct = mysqli_fetch_array($recordProductObject);

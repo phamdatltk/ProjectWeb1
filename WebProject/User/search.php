@@ -1,14 +1,29 @@
 <?php
-    if(isset($_GET['TypeID'])){
-        $ID = $_GET['TypeID'];
+    if(isset($_GET['keyword'])){
+        $keyword = $_GET['keyword'];
     }
-    $sqlSelectProduct = "SELECT * FROM Products WHERE Type_ID = '$ID'";
-    $sqlSelectNameOfType = "SELECT Name FROM Types WHERE ID = '$ID'";
-
+    $search = '%'.$keyword.'%';
+    $sqlSelectKeywords = "SELECT * FROM Products WHERE Name LIKE '$search'";
     require("../connect.php");
+    $recordSK = select($sqlSelectKeywords);
 
-    $recordSP = select($sqlSelectProduct);
-    $recordSNOT = select($sqlSelectNameOfType); 
+    $page = 1;
+
+    if(isset($_GET['page'])){
+        $page  = (int)$_GET['page'];
+        if($page == 0){
+            $page = 1;
+        }
+        if($page == (int)(ceil(count($recordSK)/10))+1 ){
+            $page = $page-1;
+        }
+    }
+
+    var_dump($page);
+
+    $firstProduct = ($page-1)*10;   
+    $sqlSelectPages = "SELECT * FROM Products WHERE Name LIKE '$search' LIMIT $firstProduct, 10";
+    $recordSP = select($sqlSelectPages);
 ?>
 
 <!DOCTYPE html>
@@ -50,12 +65,11 @@
         </nav>
         <!-- Breadcrumbs end -->
 
-        <!-- Suggestion start-->
+        <!-- Show product start-->
         <section class="bg-white dark:bg-gray-900 rounded-3xl mt-[50px]">
             <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 rounded-3xl">
                 <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"><?=$recordSNOT[0][0]?></h2>
-                    <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">All products of <?=$recordSNOT[0][0]?></p>
+                    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Keyword: "<?=$keyword?>"</h2>
                 </div>
                 <div class="space-y-8 lg:grid lg:grid-cols-5 sm:gap-1 xl:gap-2 lg:space-y-0">
 
@@ -91,8 +105,29 @@
                     <?php }; ?>
                 </div>
             </div>
+            <!-- Pagination start -->
+            <div class="flex flex-col items-center pb-[20px]">
+                <!-- Help text -->
+                <span class="text-sm text-gray-700 dark:text-gray-400">
+                    Showing <span class="font-semibold text-gray-900 dark:text-white"><?= ($page-1)*10+1 ?></span> to <span class="font-semibold text-gray-900 dark:text-white"><?=($page*10<count($recordSK))?($page*10):(count($recordSK))?></span> of <span class="font-semibold text-gray-900 dark:text-white"><?=count($recordSK)?></span> Entries
+                </span>
+                <!-- Buttons -->
+                <div class="inline-flex mt-2 xs:mt-0">
+                <?php $next = $page + 1; $pre = $page - 1;?>
+                <a href="search.php?keyword=<?=$keyword?>&page=<?=$pre?>" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                Previous
+                </a>
+
+                <!-- Next Button -->
+                <a href="search.php?keyword=<?=$keyword?>&page=<?=$next?>" class="inline-flex items-center py-2 px-4 ml-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                Next
+                </a>
+                </div>
+            </div>
         </section>
-        <!-- Suggestion end-->
+        <!-- Show product end-->
+
+        <!-- Pagination end -->
 
     </div>
     <!-- Container have main content end -->
