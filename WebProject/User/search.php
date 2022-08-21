@@ -19,8 +19,6 @@
         }
     }
 
-    var_dump($page);
-
     $firstProduct = ($page-1)*10;   
     $sqlSelectPages = "SELECT * FROM Products WHERE Name LIKE '$search' LIMIT $firstProduct, 10";
     $recordSP = select($sqlSelectPages);
@@ -109,7 +107,7 @@
             <div class="flex flex-col items-center pb-[20px]">
                 <!-- Help text -->
                 <span class="text-sm text-gray-700 dark:text-gray-400">
-                    Showing <span class="font-semibold text-gray-900 dark:text-white"><?= ($page-1)*10+1 ?></span> to <span class="font-semibold text-gray-900 dark:text-white"><?=($page*10<count($recordSK))?($page*10):(count($recordSK))?></span> of <span class="font-semibold text-gray-900 dark:text-white"><?=count($recordSK)?></span> Entries
+                    Showing <span class="font-semibold text-gray-900 dark:text-white"><?= ($page-1)*10+1 ?></span> to <span class="font-semibold text-gray-900 dark:text-white"><?=($page*10<count($recordSK))?($page*10):(count($recordSK))?></span> of <span class="font-semibold text-gray-900 dark:text-white"><?=count($recordSK)?></span> products
                 </span>
                 <!-- Buttons -->
                 <div class="inline-flex mt-2 xs:mt-0">
