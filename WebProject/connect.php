@@ -4,6 +4,7 @@
     }
 
     $sqlSelect = "SELECT * FROM Users WHERE Token = '$TokenID'";
+    $sqlSelectNumberProductsFromCart = "SELECT COUNT(*) FROM Carts WHERE User_id = (SELECT ID FROM Users WHERE Token = '$TokenID')";
     
     $servername = "localhost";
     $username = "root";
@@ -20,6 +21,9 @@
     $Full_name= $record['Full_name'];
     $Email = $record['Email'];
 
+    $recordNPFCObject = mysqli_query($conn, $sqlSelectNumberProductsFromCart);
+    $recordNPFC = mysqli_fetch_array($recordNPFCObject);
+    $numberOfProducts = $recordNPFC[0];
     function select($query){
         $result = array();
         $object_records = mysqli_query($GLOBALS['conn'], $query);

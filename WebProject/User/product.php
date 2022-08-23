@@ -18,6 +18,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript">
+        function submitForm() { // submits form
+            document.getElementById("amount").submit();
+        }
+        function btnSearchClick()
+        {
+            if (document.getElementById("amount")) {
+                setTimeout("submitForm()", 1700); // set timout 
+        }
+        }
+    </script>
     <title>Document</title>
 </head>
 
@@ -97,6 +108,7 @@
                                     <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="M137.4 406.6l-128-127.1C3.125 272.4 0 264.2 0 255.1s3.125-16.38 9.375-22.63l128-127.1c9.156-9.156 22.91-11.9 34.88-6.943S192 115.1 192 128v255.1c0 12.94-7.781 24.62-19.75 29.58S146.5 415.8 137.4 406.6z"/></svg>
                                     <span class="sr-only">Arrow key left</span>
                                 </div>
+                                <input type="text" class="hidden" name="product_id" value="<?php echo $ID?>">
                                 <input class=" w-[50px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="number" name="amount" id="number" value="1" />
                                 <div id="increase" onclick="increaseValue()" value="Increase Value" class="inline-flex items-center px-2 py-1.5 text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">
                                     <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="M118.6 105.4l128 127.1C252.9 239.6 256 247.8 256 255.1s-3.125 16.38-9.375 22.63l-128 127.1c-9.156 9.156-22.91 11.9-34.88 6.943S64 396.9 64 383.1V128c0-12.94 7.781-24.62 19.75-29.58S109.5 96.23 118.6 105.4z"/></svg>
@@ -107,10 +119,28 @@
 
                         <div class="flex items-center md:order-2 mt-[50px]">
                             <!-- Add to cart -->
-                            <button id="submit" onclick="btnSearchClick()" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <div id="submit" onclick="btnSearchClick();" type="button" data-modal-toggle="popup-modal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 <svg class="w-4 h-4" stroke="currentColor" viewBoxaria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg>
                                 Add to cart
-                            </button>
+                        </div>
+
+                            <!-- Main modal -->
+                            <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
+                                <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="popup-modal">
+                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                        <div class="p-6 text-center">
+                                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Add to cart complete!</h3>
+                                            <button data-modal-toggle="popup-modal" type="button" class="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                                Okela
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             
                             <!-- Buy -->
                             <a href="../User/CardAndBuy/buy.php">
@@ -119,30 +149,6 @@
 
                         </div>
                     </form>
-
-                    <!-- Modal toggle -->
-                    <button id='5' class="hidden block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" data-modal-toggle="popup-modal">
-                        Toggle modal
-                    </button>
-
-                    <!-- Main modal -->
-                    <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
-                        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
-                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="popup-modal">
-                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
-                                <div class="p-6 text-center">
-                                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Add to cart complete!</h3>
-                                    <button data-modal-toggle="popup-modal" type="button" class="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                                        Okela
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
                 <!-- Product Information end -->
             </div>
@@ -173,10 +179,5 @@
         }
     </script>
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
-    
-    
-    <script>
-        setTimeout(function () {document.getElementById('5').click();}, 500);
-    </script>
 </body>
 </html>
