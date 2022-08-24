@@ -101,7 +101,7 @@
                     <div class=" w-full h-[200px] lg:grid lg:grid-cols-9 justify-items-center items-center bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 ">
                         
                         <div class="text-center">
-                            <input id="link-checkbox" type="checkbox" value="" class=" w-5 h-5 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input id="link-checkbox" type="checkbox" name="" value="" class=" w-5 h-5 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         </div>
 
                         <a class="col-span-2" href="../product.php?ID=<?= $record['ID'] ?>">
@@ -133,6 +133,30 @@
                         
                     </div>
                     <?php }; ?>
+
+                    <div class=" w-full h-[200px] lg:grid lg:grid-cols-6 justify-items-center items-center bg-white rounded-lg dark:bg-gray-800 dark:border-gray-700 ">
+                        <div class="text-center">
+                            <input id="checkAll" type="checkbox" value="" class="w-5 h-5 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        </div>
+
+                        <div>
+                            <button onclick=selectAll()>
+                                Select all
+                            </button>
+                        </div>
+
+                        <div>
+                            <button onclick = deleteAll()>
+                                Delete
+                            </button>
+                        </div>
+
+                        <div class="col-span-2"></div>
+
+                        <a href="buy.php">
+                            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Buy</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -144,6 +168,45 @@
     <!-- Footer start -->
     <?php require('../footer.php'); ?>
     <!-- Footer end -->
+
+    <script>
+        var check = document.getElementById('checkAll');
+        
+        
+        console.log(check.change)
+        
+
+        var listInput = document.getElementsByClassName("w-5 h-5 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600");
+        function selectAll() {
+            check.checked = true;
+            for (var i = 0; i < listInput.length - 1; i++){
+                    listInput[i].checked = true;
+            }
+        };
+
+        function deleteAll() {
+            check.checked = false;
+            for (var i = 0; i < listInput.length - 1; i++){
+                    listInput[i].checked = false;
+            }
+        }
+        
+        check.addEventListener('change', function() {
+            if(this.checked){
+                for (var i = 0; i < listInput.length - 1; i++){
+                    listInput[i].checked = true;
+                }
+            }else{
+                for (var i = 0; i < listInput.length - 1; i++){
+                    listInput[i].checked = false;
+                }
+            }
+        });
+
+        
+
+        
+    </script>
 
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
 </body>
