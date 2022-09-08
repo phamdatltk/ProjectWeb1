@@ -97,66 +97,72 @@
                 <div class="space-y-8 lg:grid lg:grid-cols-1 sm:gap-1 xl:gap-2 lg:space-y-0">
 
                     <!-- Pricing Card -->
-                    <?php foreach ($recordProducts as $record){ ?>
-                    <div class=" w-full h-[200px] lg:grid lg:grid-cols-9 justify-items-center items-center bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 ">
-                        
-                        <div class="text-center">
-                            <input id="link-checkbox" type="checkbox" name="" value="" class=" w-5 h-5 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+
+                    <form action="buy.php" method="get">
+
+                        <?php foreach ($recordProducts as $record){ ?>
+                        <div class=" w-full h-[200px] lg:grid lg:grid-cols-9 justify-items-center items-center bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 ">
+                            
+                            <div class="text-center">
+                                <input id="link-checkbox" type="checkbox" name= "product[]" value=<?=$record["ID"]?> class=" w-5 h-5 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            </div>
+    
+                            <a class="col-span-2" href="../product.php?ID=<?= $record['ID'] ?>">
+                                <img class="p-4 rounded-t-lg h-[200px]" src=<?= $record["Image"]?> alt="product image" />
+                            </a>
+                            
+                            <div class="col-span-2">
+    
+                                <span class = "inline-block align-middle">
+                                    <?=$record["Name"]?>
+                                </span> 
+                            </div>
+    
+                            <div>
+                                <?=number_format($record["Price"],0)?>
+                            </div>
+    
+                            <div>
+                                <?=$record["Quantity"]?>
+                            </div>
+    
+                            <div class="text-red-500">
+                                <?=number_format($record["Sum"],0)?>
+                            </div>
+    
+                            <a href="deleteProductInCart.php?cartID=<?=$record["CartID"]?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
+    
+    
+                            
                         </div>
-
-                        <a class="col-span-2" href="../product.php?ID=<?= $record['ID'] ?>">
-                            <img class="p-4 rounded-t-lg h-[200px]" src=<?= $record["Image"]?> alt="product image" />
-                        </a>
-                        
-                        <div class="col-span-2">
-
-                            <span class = "inline-block align-middle">
-                                <?=$record["Name"]?>
-                            </span>
+                        <?php }; ?>
+    
+                        <div class=" w-full h-[200px] lg:grid lg:grid-cols-7 justify-items-center items-center bg-white rounded-lg dark:bg-gray-800 dark:border-gray-700 ">
+                            <div class="text-center">
+                                <input id="checkAll" type="checkbox" value="" class="w-5 h-5 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            </div>
+    
+                            <div>
+                                <button onclick=selectAll() type="button">
+                                    Select all
+                                </button>
+                            </div>
+    
+                            <div>
+                                <button onclick = deleteAll() type="button">
+                                    Delete
+                                </button>
+                            </div>
+    
+                            <div>Sum:</div>
+    
+                            <div class="col-span-2" id = "sum">0 vnd</div>
+    
+                            <a href="buy.php">
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Buy</button>
+                            </a>
                         </div>
-
-                        <div>
-                            <?=number_format($record["Price"],0)?>
-                        </div>
-
-                        <div>
-                            <?=$record["Quantity"]?>
-                        </div>
-
-                        <div class="text-red-500">
-                            <?=number_format($record["Sum"],0)?>
-                        </div>
-
-                        <a href="deleteProductInCart.php?cartID=<?=$record["CartID"]?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-
-
-                        
-                    </div>
-                    <?php }; ?>
-
-                    <div class=" w-full h-[200px] lg:grid lg:grid-cols-6 justify-items-center items-center bg-white rounded-lg dark:bg-gray-800 dark:border-gray-700 ">
-                        <div class="text-center">
-                            <input id="checkAll" type="checkbox" value="" class="w-5 h-5 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        </div>
-
-                        <div>
-                            <button onclick=selectAll()>
-                                Select all
-                            </button>
-                        </div>
-
-                        <div>
-                            <button onclick = deleteAll()>
-                                Delete
-                            </button>
-                        </div>
-
-                        <div class="col-span-2"></div>
-
-                        <a href="buy.php">
-                            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Buy</button>
-                        </a>
-                    </div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -170,40 +176,76 @@
     <!-- Footer end -->
 
     <script>
+        var sum = 0;
         var check = document.getElementById('checkAll');
         
         
-        console.log(check.change)
-        
-
         var listInput = document.getElementsByClassName("w-5 h-5 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600");
         function selectAll() {
             check.checked = true;
+            sum  = 0;
             for (var i = 0; i < listInput.length - 1; i++){
-                    listInput[i].checked = true;
+                listInput[i].checked = true;
+                sum+=Number(listInput[i].value);
             }
+            document.getElementById('sum').innerHTML = sum+ ' vnd';   
         };
 
         function deleteAll() {
+            sum = 0;
             check.checked = false;
             for (var i = 0; i < listInput.length - 1; i++){
-                    listInput[i].checked = false;
+                listInput[i].checked = false;        
             }
+            document.getElementById('sum').innerHTML = sum+ ' vnd';
         }
         
         check.addEventListener('change', function() {
             if(this.checked){
+                sum  = 0;
                 for (var i = 0; i < listInput.length - 1; i++){
                     listInput[i].checked = true;
+                    sum+=Number(listInput[i].value);
                 }
+                document.getElementById('sum').innerHTML = sum+ ' vnd';                
+
             }else{
+                sum = 0;
                 for (var i = 0; i < listInput.length - 1; i++){
-                    listInput[i].checked = false;
+                    listInput[i].checked = false;        
                 }
+                document.getElementById('sum').innerHTML = sum+ ' vnd';                
             }
         });
 
         
+
+        for(var i = 0; i < listInput.length - 1; i++){
+            listInput[i].addEventListener('change', function() {
+                if(this.checked){
+                    sum += Number(this.value);
+                    document.getElementById('sum').innerHTML = sum + ' vnd';                
+                }else{
+                    sum -= Number(this.value);
+                    document.getElementById('sum').innerHTML = sum + ' vnd'; 
+                }
+            })
+        };
+
+        <?php if(isset($_GET['checked'])){ ?>
+        
+        for(var i = 0; i < listInput.length -1; i++){
+            console.log(listInput[i].value);
+            console.log(<?=$_GET['checked']?>);
+            if(listInput[i].value == <?=$_GET['checked']?>){
+                listInput[i].checked = true;
+                document.getElementById('sum').innerHTML = Number(listInput[i].value) + ' vnd'; 
+            }
+        }
+        
+        <?php } ?>
+
+
 
         
     </script>

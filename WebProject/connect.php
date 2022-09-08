@@ -1,4 +1,7 @@
 <?php    
+
+    $domain = "http://localhost/WebProject/";
+
     if(isset($_COOKIE['TokenID'])){
         $TokenID = $_COOKIE['TokenID'];
     }
@@ -24,6 +27,8 @@
     $recordNPFCObject = mysqli_query($conn, $sqlSelectNumberProductsFromCart);
     $recordNPFC = mysqli_fetch_array($recordNPFCObject);
     $numberOfProducts = $recordNPFC[0];
+    
+    
     function select($query){
         $result = array();
         $object_records = mysqli_query($GLOBALS['conn'], $query);

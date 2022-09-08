@@ -3,29 +3,28 @@
 session_start();
 
 if (isset($_POST['email'])) {
-    $Email = $_POST["email"];
+    $EmailLogin = $_POST["email"];
 }
 if (isset($_POST['password'])) {
     $Password = $_POST["password"];
 }
 
 
-$sqlSelect = "SELECT * FROM Users";
-$sqlSelectPassword = "SELECT * FROM Users WHERE Email = '$Email'";
-
+$sqlSelectLogin = "SELECT * FROM Users";
+$sqlSelectPassword = "SELECT * FROM Users WHERE Email = '$EmailLogin'";
 require("../../connect.php");
 
-$records = mysqli_query($conn, $sqlSelect);
+$records = select($sqlSelectLogin);
 
 $checkEmail = 0;
 
+
 foreach ($records as $record) {
-    if (strcmp($record['Email'], $Email) == 0) {
+    if (strcmp($record['Email'], $EmailLogin) == 0) {
         $checkEmail = 1;
         break;
     }
 }
-
 
 if ($checkEmail == 1) {
     $queryPass = mysqli_query($conn, $sqlSelectPassword);
@@ -42,7 +41,13 @@ if ($checkEmail == 1) {
         
         $_SESSION['ID'] = $Pass['ID'];
         setcookie("TokenID", $token, time() + 86400 * 30, "/");
-        header("Location: ../home.php");
+
+        // If client was required login to continue
+        if (isset($_POST['checkFromProcess'])) {
+            header("Location: ".$domain."User/product.php?ID=".$_POST['ID']);
+        }else{
+            header("Location: ../home.php");
+        }
 
 
     } else {

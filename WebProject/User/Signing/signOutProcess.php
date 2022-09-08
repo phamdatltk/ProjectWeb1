@@ -14,5 +14,5 @@
     mysqli_query($conn, $sqlDeleteToken);
     
     setcookie("TokenID", null, -1,  "/");
-    header("Location: ./loginPage.php");
+    header("Location: ../../index.php");
 

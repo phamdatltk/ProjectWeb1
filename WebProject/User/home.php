@@ -1,4 +1,9 @@
 <?php
+
+    if (!isset($_COOKIE['TokenID'])){
+        header("Location: ../index.php");
+    }
+
     require("../connect.php");
 
     $sqlSelectTopSale = "SELECT * FROM `Products`
@@ -27,8 +32,8 @@
 
     <?php require("navAndTab.php"); ?>
 
-    <!-- Advertisement start-->
-    <div class="relative w-[100%]" style="height: 441px; margin-top: 25px; background-image: url('https://scontent.fhan2-2.fna.fbcdn.net/v/t1.15752-9/295404889_1251345245603214_1050243785686971245_n.png?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_ohc=twU_fsHyoAkAX9Etv54&tn=vTwwp-d3p2H9mPNW&_nc_ht=scontent.fhan2-2.fna&oh=03_AVK4rp_pYqhh26g8s43Ad4ZG2KOrfwJ5lBueJzHKRIo2ug&oe=630C1E5E'); " >
+     <!-- Advertisement start-->
+     <div class="relative w-[100%]" style="height: 441px; margin-top: 25px; background-image: url('https://scontent.fhan2-4.fna.fbcdn.net/v/t1.15752-9/295404889_1251345245603214_1050243785686971245_n.png?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_ohc=lyChtFOYh9YAX-DHLzS&tn=vTwwp-d3p2H9mPNW&_nc_ht=scontent.fhan2-4.fna&oh=03_AVIGZ-hodZrzWdTXSfcm03gDPTd-ygKHm53zam_gGIVZHw&oe=633F88DE'); " >
         <!-- New container have content start-->
         <div class="absolute mx-8 h-fit w-[80%] mx-[10%] bottom-[-136px]">
             <!-- Slider start -->
@@ -91,11 +96,11 @@
                     <!-- Pricing Card -->
                     <?php foreach ($recordSTS as $record){ ?>
                     <div class="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                        <a href="product.php?ID=<?= $record['ID'] ?>">
+                        <a href=<?= $domain."User/product.php?ID=".$record['ID'] ?> >
                             <img class="p-8 rounded-t-lg" src=<?= $record[3]?> alt="product image" />
                         </a>
                         <div class="px-5 pb-5">
-                            <a href="product.php?ID=<?= $record['ID'] ?>">
+                            <a href=<?= $domain."User/product.php?ID=".$record['ID'] ?> >
                                 <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white"><?=$record[1] ?></h5>
                             </a>
                             <div class="flex items-center mt-2.5 mb-5">
@@ -133,11 +138,11 @@
                     <!-- Pricing Card -->
                     <?php foreach ($recordSAC as $record){ ?>
                     <div class="w-full max-w-sm bg-white rounded-lg">
-                        <a href="#">
+                        <a href=<?=$domain."User/category.php?TypeID=".$record['ID']?>>
                             <img class="p-8 rounded-t-lg" src=<?= $record['Image']?> alt="product image" />
                         </a>
                         <div class="px-5 pb-5 text-center">
-                            <a href="#">
+                            <a href=<?=$domain."User/category.php?TypeID=".$record['ID']?>>
                                 <h5 class="text-xl tracking-tight text-gray-900 dark:text-white"><?=$record['Name'] ?></h5>
                             </a>
                         </div>
@@ -160,11 +165,11 @@
                     <!-- Pricing Card -->
                     <?php foreach ($recordSAP as $record){ ?>
                     <div class="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                        <a href="product.php?ID=<?= $record['ID'] ?>">
+                        <a href=<?= $domain."User/product.php?ID=".$record['ID'] ?>>
                             <img class="p-8 rounded-t-lg" src=<?= $record[3]?> alt="product image" />
                         </a>
                         <div class="px-5 pb-5">
-                            <a href="product.php?ID=<?= $record['ID'] ?>">
+                            <a href=<?= $domain."User/product.php?ID=".$record['ID'] ?>>
                                 <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white"><?=$record[1] ?></h5>
                             </a>
                             <div class="flex items-center mt-2.5 mb-5">
